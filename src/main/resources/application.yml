@@ -1,0 +1,48 @@
+logging:
+  level:
+    root: INFO
+    com.memorynotfound: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: INFO
+server:
+  port: 8080
+
+file:
+  root: usersFiles
+  avatar: /avatar
+
+---
+spring:
+  profiles: development
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/utfparking
+    username: utfparking
+    password: password
+    continueOnError: true
+    initialSize: 0
+    timeBetweenEvictionRunsMillis: 5000
+    minEvictableIdleTimeMillis: 5000
+    minIdle: 0
+    initialization-mode: always
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+#
+#raspberry-recognizer:
+#  protocol: http
+#  host: localhost
+#  port: 8080

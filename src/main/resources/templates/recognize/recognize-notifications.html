@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			xmlns:th="http://www.thymeleaf.org"
+			layout:decorate="~{fragments/layout}" th:with="activeMenu='recognize'"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<head>
+		<meta charset="UTF-8">
+		<title>Acessos</title>
+	</head>
+	<body>
+		<div layout:fragment="content" th:remove="tag">
+
+			<div class="page-title">
+
+				<div class="title-env">
+					<h1 class="title">Acessos</h1>
+					<p class="description">Exibição dos reconhecimentos do sistema.</p>
+				</div>
+				<div class="breadcrumb-env">
+					<ol class="breadcrumb bc-1">
+						<th:block layout:fragment="bradcrumb">
+							<li>
+								<a href="dashboard-1.html"><i class="fa-home"></i>Home</a>
+							</li>
+							<li>
+								<a href="extra-gallery.html">Acessos</a>
+							</li>
+							<li class="active">
+								<strong>Reconhecimentos</strong>
+							</li>
+						</th:block>
+					</ol>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="alert alert-warning">
+						<p class="text-center text-white">
+							<strong>Modo manual</strong> usuário controla a abertura do dispositivo do portão.
+						</p>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="alert alert-success">
+						<p class="text-center text-white">
+							<strong>Modo automático</strong> sistema controla a abertura do dispositivo do portão.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="alert alert-info">
+						<p class="text-center text-white">
+							<strong>Modo desativado</strong> sistem sem controle do dispositivo do portão.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-body">
+
+
+
+						<div id="recognizers"></div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<th:block layout:fragment="scripts">
+			<script th:src="@{/js/sockjs.js}"></script>
+			<script th:src="@{/js/stomp-client.js}"></script>
+			<script th:src="@{/js/notifications/notifications.js}"></script>
+<!--			<script th:src="@{/js/notifications.min.js}"></script>-->
+			<script th:src="@{/js/xenon-widgets.js}"></script>
+		</th:block>
+	</body>
+</html>
