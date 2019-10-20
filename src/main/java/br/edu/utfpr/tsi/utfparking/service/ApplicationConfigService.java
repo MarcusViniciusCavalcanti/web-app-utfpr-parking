@@ -33,7 +33,10 @@ public class ApplicationConfigService implements ServletContextAware {
     public void save(ApplicationConfigDTO config) {
         applicationConfigRepository.findById(1L).ifPresent(applicationConfig -> {
             applicationConfig.setModeSystem(config.getModeSystem());
+            applicationConfig.setIp(config.getIp());
+
             applicationConfigRepository.save(applicationConfig);
+
             this.servletContextAware.setAttribute("config", applicationConfig);
         });
 

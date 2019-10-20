@@ -90,7 +90,7 @@ public class RecognizeReceiver {
                     return Recognize.builder()
                             .cameraId(cameraId)
                             .coordinates(coordinates)
-                            .epochTime(LocalDateTime.ofInstant(Instant.ofEpochMilli(epochTime), TimeZone.getDefault().toZoneId()))
+                            .epochTime(LocalDateTime.ofInstant(Instant.ofEpochSecond(epochTime), TimeZone.getDefault().toZoneId()))
                             .origin(siteId)
                             .plate(plate)
                             .uuid(UUID.nameUUIDFromBytes((System.currentTimeMillis() + " "+ uuid).getBytes()))
