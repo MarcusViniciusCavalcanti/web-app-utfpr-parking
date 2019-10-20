@@ -1,5 +1,6 @@
 package br.edu.utfpr.tsi.utfparking.filters;
 
+import br.edu.utfpr.tsi.utfparking.models.entities.ApplicationConfig;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,10 +16,18 @@ public class CheckRequestDevice extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         var uri = request.getRequestURI();
-        var remoteAddr = request.getRemoteAddr();
 
-        System.out.println(remoteAddr);
+        if (uri.equals("/send/plate")) {
+            var remoteAddr = request.getRemoteAddr();
+            var config = (ApplicationConfig) request.getServletContext().getAttribute("config");
 
-        chain.doFilter(request, response);
+            if (remoteAddr.equals(config.getIp())) {
+                chain.doFilter(request, response);
+            } else {
+                response.getWriter().print("{\"message\": \"access denied\"");
+            }
+        } else {
+            chain.doFilter(request, response);
+        }
     }
 }

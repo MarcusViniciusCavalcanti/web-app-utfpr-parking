@@ -24,21 +24,18 @@ public class ApplicationConfigService implements ServletContextAware {
     }
 
     public void loadConfig() {
-        var applicationConfig = applicationConfigRepository.findAll().stream()
-                .findFirst()
-                .orElse(new ApplicationConfig("disable"));
+        var applicationConfig = applicationConfigRepository.findById(1L)
+                .orElse(new ApplicationConfig(1L, "disable"));
 
         this.servletContextAware.setAttribute("config", applicationConfig);
     }
 
     public void save(ApplicationConfigDTO config) {
-        var applicationConfig = new ApplicationConfig(config.getModeSystem());
+        applicationConfigRepository.findById(1L).ifPresent(applicationConfig -> {
+            applicationConfig.setModeSystem(config.getModeSystem());
+            applicationConfigRepository.save(applicationConfig);
+            this.servletContextAware.setAttribute("config", applicationConfig);
+        });
 
-        applicationConfig.setId(config.getId());
-        applicationConfig.setIp(config.getIp());
-
-        applicationConfigRepository.save(applicationConfig);
-
-        this.servletContextAware.setAttribute("config", applicationConfig);
     }
 }

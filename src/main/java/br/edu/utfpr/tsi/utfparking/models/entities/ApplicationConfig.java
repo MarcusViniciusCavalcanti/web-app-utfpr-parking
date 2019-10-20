@@ -1,10 +1,15 @@
 package br.edu.utfpr.tsi.utfparking.models.entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "application_config")
 public class ApplicationConfig {
@@ -18,7 +23,8 @@ public class ApplicationConfig {
     @Column(name = "ip")
     private String ip;
 
-    public ApplicationConfig(String modeSystem) {
+    public ApplicationConfig(long id, String modeSystem) {
+        this.id = id;
         this.modeSystem = modeSystem;
     }
 }
