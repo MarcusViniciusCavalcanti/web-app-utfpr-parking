@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <body layout:fragment="mode">
+    <div th:if="${#servletContext.getAttribute('config').modeSystem} == 'disable'">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-info">
+            <p class="text-center text-white">
+              <strong>Modo desativado</strong> sistem sem controle do dispositivo do portão.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${#servletContext.getAttribute('config').modeSystem} == 'automatic'">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success">
+            <p class="text-center text-white">
+              <strong>Modo automático</strong> sistema controla a abertura do dispositivo do portão.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${#servletContext.getAttribute('config').modeSystem} == 'manual'">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-warning">
+            <p class="text-center text-white">
+              <strong>Modo manual</strong> usuário controla a abertura do dispositivo do portão.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

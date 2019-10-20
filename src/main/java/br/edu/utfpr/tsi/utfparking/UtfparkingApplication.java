@@ -5,10 +5,8 @@ import br.edu.utfpr.tsi.utfparking.data.AccessCardRepository;
 import br.edu.utfpr.tsi.utfparking.data.CarRepository;
 import br.edu.utfpr.tsi.utfparking.data.RoleRepository;
 import br.edu.utfpr.tsi.utfparking.data.UserRepository;
-import br.edu.utfpr.tsi.utfparking.models.entities.AccessCard;
-import br.edu.utfpr.tsi.utfparking.models.entities.Car;
-import br.edu.utfpr.tsi.utfparking.models.entities.Role;
-import br.edu.utfpr.tsi.utfparking.models.entities.User;
+import br.edu.utfpr.tsi.utfparking.models.entities.*;
+import br.edu.utfpr.tsi.utfparking.service.ApplicationConfigService;
 import br.edu.utfpr.tsi.utfparking.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,12 +47,21 @@ public class UtfparkingApplication implements CommandLineRunner {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private ApplicationConfigService applicationConfigService;
+
+    @Autowired
+    private ServletContext servletContext;
+
     public static void main(String[] args) {
         SpringApplication.run(UtfparkingApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
+        applicationConfigService.setServletContext(servletContext);
+        applicationConfigService.loadConfig();
+
 //        initialDB();
 //        saveAvatar();
     }

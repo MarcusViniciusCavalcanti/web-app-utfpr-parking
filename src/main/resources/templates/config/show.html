@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}" th:with="activeMenu='config'"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <head>
+    <meta charset="UTF-8">
+    <title>Configurações</title>
+  </head>
+  <body>
+    <div layout:fragment="content" th:remove="tag">
+      <div class="page-title">
+
+        <div class="title-env">
+          <h1 class="title">Configurações do Sistema</h1>
+          <p class="description">Exibição o modo de usuo do sistema.</p>
+        </div>
+        <div class="breadcrumb-env">
+          <ol class="breadcrumb bc-1">
+            <th:block layout:fragment="bradcrumb">
+              <li>
+                <a href="dashboard-1.html"><i class="fa-home"></i>Home</a>
+              </li>
+              <li>
+                <a href="extra-gallery.html">Configurações</a>
+              </li>
+              <li>
+                <a href="extra-gallery.html">Ajustes</a>
+              </li>
+            </th:block>
+          </ol>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <section class="container">
+              <div class="row">
+                <p class="text-capitalize panel-title">Setup</p>
+              </div>
+
+              <!--/*@thymesVar id="config" type="br.edu.utfpr.tsi.utfparking.models.dtos.ApplicationConfigDTO"*/-->
+              <form role="form" th:action="@{/configuracoes/salvar}" th:object="${config}" method="post">
+                <div class="row">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Modos do Sistema</label>
+
+                    <div class="col-sm-10">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" th:value="'automatic'" th:field="*{modeSystem}">
+                          <p>Modo Automático <strong>Neste modo sistema controla o dispositivo de abertura</strong></p>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" th:value="'manual'" th:field="*{modeSystem}">
+                          <p>Modo Manual <strong>Neste modo o usuário deve clicar no botão autorizar para ativar o dispositivo de abertura</strong></p>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" th:value="'disable'" th:field="*{modeSystem}">
+                          <p>Modo Desabilitado <strong>Neste modo sistema controla não controla o dispositivo de abertura</strong></p>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group-separator"></div>
+
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label class="col-md-2 control-label" th:for="ip">Ip do dispositivo</label>
+
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" id="ip" th:field="*{ip}" placeholder="192.168.1.1">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group-separator"></div>
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary  btn-block text-left">
+                        <i class="fa-save"></i>
+                        Salvar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

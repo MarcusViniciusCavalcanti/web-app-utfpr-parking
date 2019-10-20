@@ -33,45 +33,12 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="alert alert-warning">
-						<p class="text-center text-white">
-							<strong>Modo manual</strong> usuário controla a abertura do dispositivo do portão.
-						</p>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="alert alert-success">
-						<p class="text-center text-white">
-							<strong>Modo automático</strong> sistema controla a abertura do dispositivo do portão.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-12">
-					<div class="alert alert-info">
-						<p class="text-center text-white">
-							<strong>Modo desativado</strong> sistem sem controle do dispositivo do portão.
-						</p>
-					</div>
-				</div>
-			</div>
+			<th:block layout:insert="fragments/mode" th:remove="tag" />
 
 			<div class="row">
 				<div class="panel panel-default">
 					<div class="panel-body">
-
-
-
 						<div id="recognizers"></div>
-
 					</div>
 				</div>
 			</div>

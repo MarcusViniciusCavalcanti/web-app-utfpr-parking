@@ -51,14 +51,27 @@
 							</a>
 						</li>
 						<li th:classappend="${activeMenu.equals('recognize')} ? 'opened' : ''">
-							<a href="layout-variants.html">
+							<a th:href="@{/reconhecimentos}">
 								<i class="linecons-desktop"></i>
 								<span class="title">Acessos</span>
 							</a>
 							<ul>
 								<li th:classappend="${activeMenu.equals('recognize')} ? 'active' : ''">
-									<a href="layout-variants.html">
+									<a th:href="@{/reconhecimentos}">
 										<span class="title">Reconhecimentos</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li th:classappend="${activeMenu.equals('config')} ? 'opened' : ''">
+							<a th:href="@{/configuracoes}">
+								<i class="linecons-desktop"></i>
+								<span class="title">Configurações</span>
+							</a>
+							<ul>
+								<li th:classappend="${activeMenu.equals('setter')} ? 'active' : ''">
+									<a th:href="@{/configuracoes}">
+										<span class="title">Ajustar</span>
 									</a>
 								</li>
 							</ul>
