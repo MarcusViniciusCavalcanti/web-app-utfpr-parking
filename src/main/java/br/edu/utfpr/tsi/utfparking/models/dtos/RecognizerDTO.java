@@ -26,7 +26,7 @@ public class RecognizerDTO {
 
         if (car != null) {
             var model = car.getModel();
-            var lastAccess = car.getLastAccess();
+            var lastAccess = car.getLastAccess() == null ? LocalDateTime.now() : car.getLastAccess();
             var id = car.getUser().getId();
             var name = car.getUser().getName();
             var type = car.getUser().getType();

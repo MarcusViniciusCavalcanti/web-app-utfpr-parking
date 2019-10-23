@@ -25,7 +25,7 @@ public class ApplicationConfigService implements ServletContextAware {
 
     public void loadConfig() {
         var applicationConfig = applicationConfigRepository.findById(1L)
-                .orElse(new ApplicationConfig(1L, "disable"));
+                .orElseGet(() -> applicationConfigRepository.save(new ApplicationConfig(1L, "disable")));
 
         this.servletContextAware.setAttribute("config", applicationConfig);
     }

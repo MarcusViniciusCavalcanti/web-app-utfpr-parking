@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class RecognizeReceiverTest {
 
     @Autowired
@@ -44,6 +46,24 @@ public class RecognizeReceiverTest {
 
     @Test
     public void when_receive_dto_sanding_message() {
+        var recognizeReceiver = new RecognizeReceiver(recognizeService, carService, simpMessagingTemplate);
+        recognizeReceiver.receive(createDTO());
+
+        Mockito.verify(simpMessagingTemplate, Mockito.times(1)).convertAndSend(Mockito.anyString(), Mockito.any(Object.class));
+
+        var statement = recognizeRepository.findAll().stream()
+                .map(Recognize::getPlate)
+                .collect(Collectors.toList());
+
+        assertThat(statement, Matchers.hasItems("AAY5127"));
+    }
+
+    @Test
+    public void send_no_result() {
+
+    }
+
+    private PlateRecognizerDTO createDTO() {
         var plateRecognizerDTO = new PlateRecognizerDTO();
 
         plateRecognizerDTO.setCameraId(1);
@@ -65,16 +85,6 @@ public class RecognizeReceiverTest {
         result.setCoordinates(List.of(coordinate));
         plateRecognizerDTO.setResults(List.of(result));
 
-        var recognizeReceiver = new RecognizeReceiver(recognizeService, carService, simpMessagingTemplate);
-        recognizeReceiver.receive(plateRecognizerDTO);
-
-        Mockito.verify(simpMessagingTemplate, Mockito.times(1)).convertAndSend(Mockito.anyString(), Mockito.any(Object.class));
-
-        var statement = recognizeRepository.findAll().stream()
-                .map(Recognize::getPlate)
-                .collect(Collectors.toList());
-
-        assertThat(statement, Matchers.hasItems("AAY5127"));
+        return plateRecognizerDTO;
     }
-
 }

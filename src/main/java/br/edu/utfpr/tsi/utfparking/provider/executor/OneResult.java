@@ -15,7 +15,7 @@ public class OneResult extends ResultHandler {
 
     @Override
     public void handleResult(List<ResultRecognizerDTO> results) {
-        if (results.size() == 1) {
+        if (results.size() == 1 && results.get(0).getCar() != null) {
             var car = results.get(0).getCar();
             var confidence = results.get(0).getConfidence();
             var dto = RecognizerDTO.getNewInstance(car, confidence);

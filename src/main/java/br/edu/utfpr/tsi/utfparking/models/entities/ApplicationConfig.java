@@ -1,9 +1,6 @@
 package br.edu.utfpr.tsi.utfparking.models.entities;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "application_config")
+@EqualsAndHashCode
+@ToString
 public class ApplicationConfig {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

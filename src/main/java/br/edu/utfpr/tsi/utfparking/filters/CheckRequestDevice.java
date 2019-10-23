@@ -24,6 +24,7 @@ public class CheckRequestDevice extends OncePerRequestFilter {
             if (remoteAddr.equals(config.getIp())) {
                 chain.doFilter(request, response);
             } else {
+                response.setStatus(403);
                 response.addHeader("Content-Type","application/json");
                 response.getWriter().print("{\"message\":\"access denied\"}");
             }

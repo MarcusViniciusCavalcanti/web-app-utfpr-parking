@@ -1,11 +1,25 @@
 logging:
   level:
-    root: INFO
-    com.memorynotfound: DEBUG
-    org.springframework.web: DEBUG
+    root: w
+    com.memorynotfound: INFO
+    org.springframework.web: INFO
     org.springframework.security: INFO
 server:
   port: 8080
+
+file:
+  root: usersFiles
+  avatar: /avatar
+
+---
+spring:
+  profiles: test
+  main:
+    banner-mode: "off"
+logging:
+  level:
+    root: OFF
+    org.springframework.boot: "off"
 
 file:
   root: usersFiles

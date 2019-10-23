@@ -6,6 +6,7 @@ import br.edu.utfpr.tsi.utfparking.models.entities.Car;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 public class MultipleResult extends ResultHandler {
@@ -19,21 +20,12 @@ public class MultipleResult extends ResultHandler {
         if (results.size() > 1) {
             results.stream()
                     .filter(car -> {
-                        var hour = LocalDateTime.now().getHour();
-                        var minute = LocalDateTime.now().getMinute();
-
-                        var lastHourAccess = car.getCar().getLastAccess().getHour();
-                        var lastMinuteAccess = car.getCar().getLastAccess().getMinute();
-
-                        return (lastHourAccess + lastMinuteAccess) < (hour + minute);
+                        var lastAccess = car.getCar().getLastAccess();
+                        return LocalDateTime.now().minusMinutes(10).isBefore(lastAccess);
                     })
-                    .findFirst()
-                    .ifPresentOrElse(result -> {
-                        var dto = RecognizerDTO.getNewInstance(result.getCar(), results.get(0).getConfidence());
-                        this.sending(dto);
-                    }, () -> {
-                        var car = results.get(0).getCar();
-                        var dto = RecognizerDTO.getNewInstance(car, results.get(0).getConfidence());
+                    .max(Comparator.comparing(ResultRecognizerDTO::getConfidence))
+                    .ifPresent(result -> {
+                        var dto = RecognizerDTO.getNewInstance(result.getCar(), result.getConfidence());
                         this.sending(dto);
                     });
 

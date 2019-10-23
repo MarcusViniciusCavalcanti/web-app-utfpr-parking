@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -29,8 +25,6 @@ public class RecognizerPlateController {
 
     @PostMapping("/send/plate")
     public ResponseEntity<String> identifierPlate(@RequestBody PlateRecognizerDTO dto) {
-        System.out.println("dto ----------------- "+ Instant.ofEpochMilli(dto.getEpochTime()).atZone(ZoneId.systemDefault()).toLocalDateTime());
-        System.out.println("sistem ------------ ---- " + Instant.ofEpochMilli(System.currentTimeMillis()).atZone(ZoneId.systemDefault()).toLocalDateTime());
         var results = dto.getResults().stream()
                 .filter(r -> r.getConfidence() > 75)
                 .collect(Collectors.toList());

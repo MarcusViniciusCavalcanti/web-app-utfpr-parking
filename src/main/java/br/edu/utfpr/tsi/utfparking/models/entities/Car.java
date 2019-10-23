@@ -12,6 +12,8 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
+@EqualsAndHashCode
+@ToString
 @Setter(value = AccessLevel.PACKAGE)
 @Builder
 public class Car {
@@ -38,36 +40,6 @@ public class Car {
 
     @Column(name = "updated_at")
     private LocalDate updatedAt;
-
-    @Override
-    public String toString() {
-        return "Car{" +
-                "id=" + id +
-                ", plate='" + plate + '\'' +
-                ", model='" + model + '\'' +
-                ", user=" + user +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return id.equals(car.id) &&
-                plate.equals(car.plate) &&
-                model.equals(car.model) &&
-                user.equals(car.user) &&
-                Objects.equals(createdAt, car.createdAt) &&
-                Objects.equals(updatedAt, car.updatedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, plate, model, user, createdAt, updatedAt);
-    }
 
     @PrePersist
     private void newCar() {

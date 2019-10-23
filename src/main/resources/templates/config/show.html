@@ -42,7 +42,7 @@
               </div>
 
               <!--/*@thymesVar id="config" type="br.edu.utfpr.tsi.utfparking.models.dtos.ApplicationConfigDTO"*/-->
-              <form role="form" th:action="@{/configuracoes/salvar}" th:object="${config}" method="post">
+              <form name="form-config" role="form" th:action="@{/configuracoes/salvar}" th:object="${config}" method="post">
                 <div class="row">
                   <div class="form-group">
                     <label class="col-sm-2 control-label">Modos do Sistema</label>

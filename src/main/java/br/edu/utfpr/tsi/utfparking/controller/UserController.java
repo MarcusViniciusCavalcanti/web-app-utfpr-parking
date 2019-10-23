@@ -23,5 +23,4 @@ public class UserController {
         var file = fileService.getFile(id);
         return Files.readAllBytes(file.toPath());
     }
-
 }

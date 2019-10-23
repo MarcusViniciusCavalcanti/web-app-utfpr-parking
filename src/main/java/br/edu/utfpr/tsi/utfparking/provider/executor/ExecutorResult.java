@@ -10,16 +10,18 @@ public class ExecutorResult {
     private ResultHandler resultHandler;
 
     public ExecutorResult(SimpMessagingTemplate simpMessagingTemplate) {
-        initialHandlerResult(simpMessagingTemplate);
+        var noResult = new NoResult(null, simpMessagingTemplate);
+        var multipleResult = new MultipleResult(noResult, simpMessagingTemplate);
+        var oneResult = new OneResult(multipleResult, simpMessagingTemplate);
+
+        initialHandlerResult(oneResult);
     }
 
     public void sendingResult(List<ResultRecognizerDTO> cars) {
         resultHandler.handleResult(cars);
     }
 
-    private void initialHandlerResult(SimpMessagingTemplate simpMessagingTemplate) {
-        var noResult = new NoResult(null, simpMessagingTemplate);
-        var multipleResult = new MultipleResult(noResult, simpMessagingTemplate);
-        resultHandler = new OneResult(multipleResult, simpMessagingTemplate);
+    protected void initialHandlerResult(ResultHandler resultHandler) {
+        this.resultHandler = resultHandler;
     }
 }

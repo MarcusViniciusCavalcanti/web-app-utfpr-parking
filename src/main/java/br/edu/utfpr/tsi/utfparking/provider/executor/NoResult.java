@@ -15,7 +15,7 @@ public class NoResult extends ResultHandler {
 
     @Override
     public void handleResult(List<ResultRecognizerDTO> results) {
-        if (results.isEmpty()) {
+        if (!results.isEmpty() && results.get(0).getCar() == null) {
             var message = RecognizerDTO.getNewInstance(null, results.get(0).getConfidence());
             super.sending(message);
         }

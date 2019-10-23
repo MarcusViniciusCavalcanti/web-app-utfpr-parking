@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class RecognizeServiceTest {
 
     @Autowired
@@ -44,5 +46,4 @@ public class RecognizeServiceTest {
         var abc1234 = recognizeService.isVerifier("ABC1234");
         assertThat(abc1234, Matchers.is(true));
     }
-
 }

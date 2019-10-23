@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,6 +20,8 @@ import java.util.stream.Stream;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
+@ToString
 public class AccessCard implements UserDetails {
 
     @Id
@@ -87,35 +88,4 @@ public class AccessCard implements UserDetails {
         this.updatedAt = LocalDate.now();
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccessCard that = (AccessCard) o;
-        return id.equals(that.id) &&
-                username.equals(that.username);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username);
-    }
-
-    @Override
-    public String toString() {
-        return "AccessCard{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", accountNonExpired=" + accountNonExpired +
-                ", accountNonLocked=" + accountNonLocked +
-                ", credentialsNonExpired=" + credentialsNonExpired +
-                ", enabled=" + enabled +
-                ", user=" + user +
-                ", roles=" + roles +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
 }

@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter(value = AccessLevel.PACKAGE)
 @Builder
+@EqualsAndHashCode
+@ToString
 public class Recognize {
 
     @Id
@@ -56,55 +57,9 @@ public class Recognize {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDate updatedAt;
-
-    @Override
-    public String toString() {
-        return "Recognize{" +
-                "id=" + id +
-                ", uuid=" + uuid +
-                ", cameraId=" + cameraId +
-                ", origin='" + origin + '\'' +
-                ", epochTime=" + epochTime +
-                ", processingTimeMs=" + processingTimeMs +
-                ", plate='" + plate + '\'' +
-                ", coordinates=" + coordinates +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Recognize recognize = (Recognize) o;
-        return id.equals(recognize.id) &&
-                uuid.equals(recognize.uuid) &&
-                Objects.equals(cameraId, recognize.cameraId) &&
-                origin.equals(recognize.origin) &&
-                epochTime.equals(recognize.epochTime) &&
-                processingTimeMs.equals(recognize.processingTimeMs) &&
-                plate.equals(recognize.plate) &&
-                coordinates.equals(recognize.coordinates) &&
-                createdAt.equals(recognize.createdAt) &&
-                updatedAt.equals(recognize.updatedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, uuid, cameraId, origin, epochTime, processingTimeMs, plate, coordinates, createdAt, updatedAt);
-    }
-
     @PrePersist
     private void newRecognize() {
         this.createdAt = LocalDate.now();
-        this.updatedAt = LocalDate.now();
     }
 
-    @PreUpdate
-    private void updateRecognize() {
-        this.updatedAt = LocalDate.now();
-    }
 }

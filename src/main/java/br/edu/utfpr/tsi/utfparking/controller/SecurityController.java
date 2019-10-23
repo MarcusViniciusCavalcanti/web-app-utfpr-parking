@@ -16,4 +16,8 @@ public class SecurityController {
         return "/error/access-denied";
     }
 
+    @GetMapping("/access-denied-public")
+    public String accessDeniedPublic() {
+        return "/error/access-denied";
+    }
 }

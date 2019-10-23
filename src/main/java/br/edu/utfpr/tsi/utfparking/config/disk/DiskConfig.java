@@ -1,5 +1,6 @@
 package br.edu.utfpr.tsi.utfparking.config.disk;
 
+import br.edu.utfpr.tsi.utfparking.error.SaveAvatarException;
 import br.edu.utfpr.tsi.utfparking.models.entities.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Component
@@ -26,7 +28,7 @@ public class DiskConfig {
             var read = ImageIO.read(file);
             ImageIO.write(read, "png", filePath);
         } catch (IOException e) {
-            throw new RuntimeException("Problemas na tentativa de salvar arquivo.", e);
+            throw new SaveAvatarException("Problemas na tentativa de salvar arquivo.", e);
         }
     }
 
@@ -41,12 +43,16 @@ public class DiskConfig {
             Files.createDirectories(path);
             file.transferTo(filePath.toFile());
         } catch (IOException e) {
-            throw new RuntimeException("Problemas na tentativa de salvar arquivo.", e);
+            throw new SaveAvatarException("Problemas na tentativa de salvar arquivo.", e);
         }
     }
 
 
     public File loadAvatar(Long id) {
-        return new File(directoryRoot + directoryAvatar + "/" + id + ".png");
+        if (Files.exists(Path.of(directoryRoot + directoryAvatar + "/" + id + ".png"))) {
+            return new File(directoryRoot + directoryAvatar + "/" + id + ".png");
+        } else {
+            return new File(directoryRoot + directoryAvatar + "/default.png");
+        }
     }
 }

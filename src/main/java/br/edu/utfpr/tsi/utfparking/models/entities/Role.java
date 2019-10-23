@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table
@@ -13,6 +12,8 @@ import java.util.Objects;
 @Getter(value = AccessLevel.PACKAGE)
 @Setter(value = AccessLevel.PACKAGE)
 @Builder
+@EqualsAndHashCode
+@ToString
 public class Role implements Serializable {
 
     @Id
@@ -30,30 +31,4 @@ public class Role implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    public void setName(String name) {
-        this.name = String.format("ROLE_%s", name.toLowerCase());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return id.equals(role.id) &&
-                name.equals(role.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

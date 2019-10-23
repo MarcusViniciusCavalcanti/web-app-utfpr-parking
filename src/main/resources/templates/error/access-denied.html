@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	<head>
 		<meta charset="UTF-8">
-		<title>Title</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="Gerenciador de acesso ao estacionado da utfpr"/>
+		<meta name="author" content="Vincius Cavalcanti"/>
+
+		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
+
+		<link rel="stylesheet" type="text/css" th:href="@{/css/fonts/linecons/css/linecons.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/fonts/fontawesome/css/font-awesome.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-core.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-components.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-skins.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}">
+
+		<script th:src="@{/js/jquery-1.11.1.min.js}"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+		<title>UtfParking - 403</title>
 	</head>
-	<body>
-		<h1>acesso negado</h1>
+	<body class="page-body page-error-env">
+
+		<div class="page-error centered">
+
+			<div class="error-symbol">
+				<i class="fa-warning"></i>
+			</div>
+
+			<h2>
+				Error 403
+				<small>Acesso Negado!</small>
+			</h2>
+
+			<p>Você não tem acesso a este recurso!</p>
+			<p>Verifique com o administrador do sistema </p>
+
+		</div>
+
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/resizeable.js}"></script>
+		<script th:src="@{/js/joinable.js}"></script>
+		<script th:src="@{/js/xenon-api.js}"></script>
+		<script th:src="@{/js/xenon-custom.js}"></script>
+
 	</body>
 </html>
