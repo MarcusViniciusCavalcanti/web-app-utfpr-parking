@@ -1,4 +1,4 @@
-package br.edu.utfpr.tsi.utfparking.controller;
+package br.edu.utfpr.tsi.utfparking.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -4,9 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.net.URI;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +28,9 @@ public class User implements Serializable {
     @MapsId
     private AccessCard accessCard;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Car car;
+
     @Column(name = "type")
     private String type;
 
@@ -43,6 +45,10 @@ public class User implements Serializable {
 
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
+    public Optional<Car> car() {
+        return Optional.ofNullable(this.car);
+    }
 
     @PrePersist
     private void newUser() {

@@ -1,4 +1,4 @@
-package br.edu.utfpr.tsi.utfparking.controller;
+package br.edu.utfpr.tsi.utfparking.web.controller;
 
 import br.edu.utfpr.tsi.utfparking.models.dtos.PlateRecognizerDTO;
 import br.edu.utfpr.tsi.utfparking.models.dtos.RecognizerDTO;

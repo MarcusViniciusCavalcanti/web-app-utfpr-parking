@@ -1,4 +1,4 @@
-package br.edu.utfpr.tsi.utfparking.controller;
+package br.edu.utfpr.tsi.utfparking.web.controller;
 
 import br.edu.utfpr.tsi.utfparking.models.dtos.ApplicationConfigDTO;
 import br.edu.utfpr.tsi.utfparking.models.entities.ApplicationConfig;

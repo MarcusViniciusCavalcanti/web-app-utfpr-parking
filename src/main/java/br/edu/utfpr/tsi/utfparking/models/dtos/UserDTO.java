@@ -10,5 +10,9 @@ public class UserDTO {
 
     private String name;
 
+    private String type;
+
     private AccessCardDTO accessCard;
+
+    private CarDTO car;
 }

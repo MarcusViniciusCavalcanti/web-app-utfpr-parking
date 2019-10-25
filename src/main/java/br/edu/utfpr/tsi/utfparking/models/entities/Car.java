@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "cars", indexes = { @Index(columnList = "plate", name = "Index_car_plate") })
@@ -21,7 +20,7 @@ public class Car {
     @Id
     private Long id;
 
-    @Column(name = "plate", nullable = false, length = 10)
+    @Column(name = "plate", nullable = false, length = 10, unique = true)
     private String plate;
 
     @Column(name = "model", nullable = false)
