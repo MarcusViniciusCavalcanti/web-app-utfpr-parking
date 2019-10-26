@@ -1,7 +1,7 @@
 -- CREATE ROLES
+INSERT INTO role (id, description, name) VALUES (1, 'Perfil usuário', 'ROLE_USER');
 INSERT INTO role (id, description, name) VALUES (2, 'Perfil Administrador', 'ROLE_ADMIN');
 INSERT INTO role (id, description, name) VALUES (3, 'Perfil Operador', 'ROLE_OPERATOR');
-INSERT INTO role (id, description, name) VALUES (1, 'Perfil usuário', 'ROLE_USER');
 
 -- CREATE ACCCESS_CARD
 INSERT INTO access_card (id, account_non_expired, account_non_locked, created_at, credentials_non_expired, enabled, password, updated_at, username) VALUES (1, true, true, '2019-10-23', true, true, '$2a$10$lNU7iTnSBhW7LdUAd/YWuO5v5rnfwd8wMfvMhrwQOFfk7cJyJvsDa', '2019-10-23', 'vinicius_user');

@@ -68,8 +68,8 @@ public class UserFacade {
                 .enabled(user.getAccessCard().isEnabled())
                 .username(user.getAccessCard().getUsername())
                 .id(user.getId())
-                .model(user.getCar().getModel())
-                .plate(user.getCar().getPlate())
+                .model(user.getCar() != null ? user.getCar().getModel() : "Não cadastrado")
+                .plate(user.getCar() != null ? user.getCar().getPlate() : "Não cadastrado")
                 .type(user.getType())
                 .isAuthorisedAccess(user.isAuthorisedAccess())
                 .build();

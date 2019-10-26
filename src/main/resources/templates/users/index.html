@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}" th:with="activeMenu='user-show'"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/js/datatables/dataTables.bootstrap.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+
+    <title>Todos Usuários</title>
+  </head>
+  <body>
+    <div layout:fragment="content" th:remove="tag">
+
+      <div class="page-title">
+
+        <div class="title-env">
+          <h1 class="title">Usuários</h1>
+          <p class="description">Exibição uma lista de todos usuários.</p>
+        </div>
+        <div class="breadcrumb-env">
+          <th:block layout:fragment="bradcrumb">
+            <ol class="breadcrumb bc-2">
+              <li>
+                <a th:href="@{/home}"><i class="fa-home"></i>Home</a>
+              </li>
+              <li>
+                <a th:href="@{/usuarios}">Usuários</a>
+              </li>
+              <li class="active">
+                <strong>Todos</strong>
+              </li>
+            </ol>
+          </th:block>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Lista de todos Usuários</h3>
+        </div>
+
+        <div class="panel-body">
+          <table class="table table-striped table-bordered" id="users_table">
+            <thead>
+              <tr class="replace-inputs">
+                <th>id</th>
+                <th>name</th>
+                <th>username</th>
+                <th>plate</th>
+                <th>model</th>
+                <th>type</th>
+                <th>accountNonLocked</th>
+                <th>enabled</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <th:block layout:fragment="scripts">
+        <script th:src="@{/js/datatables/js/jquery.dataTables.min.js}"></script>
+        <script th:src="@{/js/datatables/dataTables.bootstrap.js}"></script>
+        <script th:src="@{/js/datatables/yadcf/jquery.dataTables.yadcf.js}"></script>
+        <script th:src="@{/js/datatables/tabletools/dataTables.tableTools.min.js}"></script>
+        <script th:src="@{/js/datatables/js/configurations.js}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+      </th:block>
+    </div>
+  </body>
+</html>

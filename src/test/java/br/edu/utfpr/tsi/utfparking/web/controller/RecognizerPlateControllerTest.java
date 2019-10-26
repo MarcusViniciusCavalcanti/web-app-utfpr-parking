@@ -1,4 +1,4 @@
-package br.edu.utfpr.tsi.utfparking.controller;
+package br.edu.utfpr.tsi.utfparking.web.controller;
 
 import br.edu.utfpr.tsi.utfparking.UtfparkingApplication;
 import br.edu.utfpr.tsi.utfparking.data.RecognizeRepository;

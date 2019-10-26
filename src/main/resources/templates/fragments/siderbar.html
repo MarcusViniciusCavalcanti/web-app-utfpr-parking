@@ -41,8 +41,6 @@
 					</header>
 
 					<ul id="main-menu" class="main-menu">
-						<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-						<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
 						<!--/*@thymesVar id="activeMenu" type="java.lang.String"*/-->
 						<li th:classappend="${activeMenu.equals('dashboard')} ? 'opened active' : ''" >
 							<a th:href="@{/reconhecimentos}">
@@ -63,13 +61,26 @@
 								</li>
 							</ul>
 						</li>
-						<li th:classappend="${activeMenu.equals('config')} ? 'opened' : ''">
+						<li id="users" th:classappend="${#request.getServletPath().contains('/usuarios') ? 'opened active' : ''}">
+							<a th:href="@{/usuarios}">
+								<i class="linecons-user"></i>
+								<span class="title">Usuários</span>
+							</a>
+							<ul>
+								<li id="users_all" th:classappend="${#request.getServletPath().contains('/usuarios') ? 'active' : ''}">
+									<a th:href="@{/usuarios}">
+										<span class="title">Todos</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li id="config" th:classappend="${#request.getServletPath() == '/configuracoes' ? 'opened active' : ''}">
 							<a th:href="@{/configuracoes}">
 								<i class="linecons-desktop"></i>
 								<span class="title">Configurações</span>
 							</a>
 							<ul>
-								<li th:classappend="${activeMenu.equals('setter')} ? 'active' : ''">
+								<li id="config_setter" th:classappend="${#request.getServletPath() == '/configuracoes' ? 'active' : ''}">
 									<a th:href="@{/configuracoes}">
 										<span class="title">Ajustar</span>
 									</a>

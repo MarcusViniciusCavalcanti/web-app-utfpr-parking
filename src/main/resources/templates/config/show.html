@@ -2,7 +2,8 @@
 <html lang="pt-br"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}" th:with="activeMenu='config'"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      layout:decorate="~{fragments/layout}" th:with="activeMenu='config', activeSubMenu='setter'"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <head>
     <meta charset="UTF-8">
     <title>Configurações</title>
@@ -16,16 +17,16 @@
           <p class="description">Exibição o modo de usuo do sistema.</p>
         </div>
         <div class="breadcrumb-env">
-          <ol class="breadcrumb bc-1">
+          <ol class="breadcrumb bc-2">
             <th:block layout:fragment="bradcrumb">
               <li>
-                <a href="dashboard-1.html"><i class="fa-home"></i>Home</a>
+                <a th:href="@{/home}"><i class="fa-home"></i>Home</a>
               </li>
               <li>
-                <a href="extra-gallery.html">Configurações</a>
+                <a th:href="@{/configuracoes}">Configurações</a>
               </li>
               <li>
-                <a href="extra-gallery.html">Ajustes</a>
+                <a href="#" class="active">Ajustes</a>
               </li>
             </th:block>
           </ol>
