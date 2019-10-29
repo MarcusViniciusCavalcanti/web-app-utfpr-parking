@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @EqualsAndHashCode
 @ToString
-@Setter(value = AccessLevel.PACKAGE)
+@Setter
 @Builder
 public class Car {
 

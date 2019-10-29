@@ -14,5 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByAccessCard(AccessCard accessCard);
 
-    Page<User> findAllByNameIsContainingOrAccessCardUsernameIsContaining(String name, String username, Pageable pageable);
+    Page<User> findAllByNameIsContainingOrAccessCardUsernameIsContainingOrCarPlateIsContaining(String name, String username, String plate, Pageable pageable);
+
 }

@@ -67,9 +67,14 @@
 								<span class="title">Usuários</span>
 							</a>
 							<ul>
-								<li id="users_all" th:classappend="${#request.getServletPath().contains('/usuarios') ? 'active' : ''}">
+								<li id="users_all" th:classappend="${#request.getServletPath().endsWith('/usuarios') ? 'active' : ''}">
 									<a th:href="@{/usuarios}">
 										<span class="title">Todos</span>
+									</a>
+								</li>
+								<li id="users_new" th:classappend="${#request.getServletPath().endsWith('/novo') ? 'active' : ''}">
+									<a th:href="@{/usuarios/novo}">
+										<span class="title">Novo</span>
 									</a>
 								</li>
 							</ul>

@@ -1,10 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}" th:with="activeMenu='user-show'"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/js/select2/select2.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/js/select2/select2-bootstrap.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+
+    <title>Formulário de Usuários</title>
   </head>
   <body>
-    
+    <div layout:fragment="content" th:remove="tag">
+
+      <div class="page-title">
+
+        <div class="title-env">
+          <h1 class="title">Formulário de Usuários</h1>
+          <p class="description">Atualiza ou cria um novo usuário.</p>
+        </div>
+        <div class="breadcrumb-env">
+          <th:block layout:fragment="bradcrumb">
+            <ol class="breadcrumb bc-2">
+              <li>
+                <a th:href="@{/home}"><i class="fa-home"></i>Home</a>
+              </li>
+              <li>
+                <a th:href="@{/usuarios}">Usuários</a>
+              </li>
+              <li class="active">
+                <!--/*@thymesVar id="user" type="br.edu.utfpr.tsi.utfparking.web.content.InputUser"*/-->
+                <strong th:text="${user.id == null ? 'Novo Usuário' : user.name}"></strong>
+              </li>
+            </ol>
+          </th:block>
+        </div>
+      </div>
+
+      <h3 class="text-gray">
+        <!--/*@thymesVar id="user" type="br.edu.utfpr.tsi.utfparking.web.content.InputUser"*/-->
+        <p class="text-bold text-primary"  th:text="${user.id == null ? 'Novo Usuário' : 'Atualizer o usuário: ' + user.name }"></p>
+        <small class="text-muted">Adicione as <strong>informações</strong> do usuário</small>
+      </h3>
+      <br />
+
+      <script type="text/javascript">
+          jQuery(document).ready(function($)
+          {
+              $(".multi-select").multiSelect({
+                  afterInit: function()
+                  {
+                      // Add alternative scrollbar to list
+                      this.$selectableContainer.add(this.$selectionContainer).find('.ms-list').perfectScrollbar();
+                  },
+                  afterSelect: function()
+                  {
+                      // Update scrollbar size
+                      this.$selectableContainer.add(this.$selectionContainer).find('.ms-list').perfectScrollbar('update');
+                  }
+              });
+
+              $(".selectboxit").selectBoxIt().on('open', function()
+              {
+                  // Adding Custom Scrollbar
+                  $(this).data('selectBoxSelectBoxIt').list.perfectScrollbar();
+              });
+          });
+      </script>
+
+      <!--/*@thymesVar id="user" type="br.edu.utfpr.tsi.utfparking.web.content.InputUser"*/-->
+      <form role="forl"
+            id="rootwizard"
+            class="form-wizard validate"
+            novalidate
+            th:action="${user.id == null} ? @{/usuarios/novo} : @{/usuarios/editar}"
+            th:object="${user}" method="post">
+        <input hidden th:field="*{id}">
+        <ul class="tabs">
+          <li class="active">
+            <a href="#fwv-1" data-toggle="tab">
+              Informações Pessoais
+              <span>1</span>
+            </a>
+          </li>
+          <li>
+            <a href="#fwv-2" data-toggle="tab">
+              Informações do Carro
+              <span>2</span>
+            </a>
+          </li>
+          <li>
+            <a href="#fwv-3" data-toggle="tab">
+              Cartão de acesso
+              <span>3</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="progress-indicator">
+          <span></span>
+        </div>
+
+        <div class="tab-content no-margin">
+
+          <!-- Tabs Content -->
+          <div class="tab-pane with-bg active" id="fwv-1">
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="name">Nome</label>
+                  <input class="form-control" th:field="*{name}" id="name" data-validate="required" placeholder="Nome Completo" />
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="type_user">Tipo do Usuário</label>
+
+                  <script type="text/javascript">
+                      jQuery(document).ready(function($) {
+                          $("#type_user").selectBoxIt({
+                              showEffect: 'fadeIn',
+                              hideEffect: 'fadeOut'
+                          });
+                      });
+                  </script>
+
+                  <select class="form-control required" id="type_user" data-validate="required" th:field="*{type}">
+                  <!--/*@thymesVar id="typeUser" type="br.edu.utfpr.tsi.utfparking.web.constants.TypesUser"*/-->
+                    <option th:each="typeUser : ${T(br.edu.utfpr.tsi.utfparking.web.constants.TypesUser).values()}"
+                            th:value="${typeUser.description}"
+                            th:text="${typeUser.description}">
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="tab-pane with-bg" id="fwv-2">
+
+            <div class="row">
+
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label class="control-label" for="car_model">Modelo do carror</label>
+                  <input class="form-control" th:field="*{carModel}" id="car_model" placeholder="Digite o modelo do carro, exemplo Gol" />
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="car_plate">Placa do Carro</label>
+                  <input class="form-control" th:field="*{carPlate}" id="car_plate" placeholder="Digite a plca do carro, exemplo ABC1234" />
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="tab-pane with-bg" id="fwv-3">
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="username">Username</label>
+                  <input class="form-control" th:field="*{username}" id="username" data-validate="require" placeholder="Digite o username do usuário" />
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" for="password">Senha</label>
+                  <input class="form-control" th:field="*{password}" id="password"
+                         th:placeholder="${user.id != null} ? 'Deixe em branco caso não queira alterar' : 'Digite uma senha para o usuário'" />
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label">Perfil</label>
+                  <script type="text/javascript">
+                      jQuery(document).ready(function($) {
+                          $("#user_roles").select2({
+                              placeholder: 'Selecione os perfils',
+                              allowClear: true
+                          }).on('select2-open', function() {
+                              $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
+                          });
+
+                      });
+                  </script>
+
+                  <select class="form-control" id="user_roles" multiple th:field="*{authorities}">
+                    <option th:value="null"></option>
+                    <option th:each="role : ${roles}"
+                            th:value="${role.id}"
+                            th:text="${role.description}">
+                    </option>
+
+                  </select>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="control-label" for="user_enabled">Conta Ativa</label>
+                  <div class="form-block">
+                    <input type="checkbox" class="iswitch iswitch-secondary" id="user_enabled" th:checked="${user.enabled}">
+                    <span class="text-gray">Ativa ou desativa a conta do usuário<strong> Marque caso queria ativar a conta do usuário</strong></span>
+                  </div>
+
+                  <label class="control-label">Bloqueada</label>
+                  <div class="form-block">
+                    <input type="checkbox" class="iswitch iswitch-danger" th:checked="${user.accountNonLocked}">
+                    <span class="text-gray">Bloqueia ou desbloqueia a conta do usuário<strong> Desmarque caso queria bloquear o usuário</strong></span>
+                  </div>
+
+                  <label class="control-label">Expirada</label>
+                  <div class="form-block">
+                    <input type="checkbox" class="iswitch iswitch-danger" th:checked="${user.accountNonExpired}">
+                    <span class="text-gray">Expira a conta do usuário<strong> Cuidado desmarcar este estado o sistema apagara a conta do usuário, na próxima verificação</strong></span>
+                  </div>
+
+                  <label class="control-label">Credenciais expiradas</label>
+                  <div class="form-block">
+                    <input type="checkbox" class="iswitch iswitch-warning" th:checked="${user.credentialsNonExpired}">
+                    <span class="text-gray">Expira o login e senha do usuário<strong> Desmarque caso que o usuário renove suas credenciais</strong></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 right-aligned">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tabs Pager -->
+
+          <ul class="pager wizard">
+            <li class="previous">
+              <a href="#"><i class="entypo-left-open"></i> Voltar</a>
+            </li>
+
+            <li class="next">
+              <a href="#">Próximo <i class="entypo-right-open"></i></a>
+            </li>
+          </ul>
+
+        </div>
+
+      </form>
+
+      <th:block layout:fragment="scripts">
+
+        <script th:src="@{/js/jquery-validate/jquery.validate.min.js}"></script>
+        <script th:src="@{/js/jquery-validate/localization/messages_pt_BR.js}"></script>
+        <script th:src="@{/js/inputmask/jquery.inputmask.bundle.js}"></script>
+        <script th:src="@{/js/formwizard/jquery.bootstrap.wizard.min.js}"></script>
+        <script th:src="@{/js/multiselect/js/jquery.multi-select.js}"></script>
+        <script th:src="@{/js/jquery-ui/jquery-ui.min.js}"></script>
+        <script th:src="@{/js/selectboxit/jquery.selectBoxIt.min.js}"></script>
+        <script th:src="@{/js/multiselect/js/jquery.multi-select.js}"></script>
+        <script th:src="@{/js/select2/select2.min.js}"></script>
+
+      </th:block>
+    </div>
   </body>
 </html>

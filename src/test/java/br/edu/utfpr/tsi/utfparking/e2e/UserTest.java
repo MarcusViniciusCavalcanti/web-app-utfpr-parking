@@ -1,4 +1,4 @@
-package br.edu.utfpr.tsi.utfparking.web.controller;
+package br.edu.utfpr.tsi.utfparking.e2e;
 
 import br.edu.utfpr.tsi.utfparking.UtfparkingApplication;
 import br.edu.utfpr.tsi.utfparking.data.AccessCardRepository;
@@ -41,7 +41,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @ActiveProfiles("test")
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:/sql/basic_user.sql"})
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = {"classpath:/sql/delete_basic_user.sql"})
-public class UserControllerTest {
+public class UserTest {
 
     private WebClient webClient;
 
@@ -112,7 +112,7 @@ public class UserControllerTest {
     @Test
     @WithUserDetails(value = "vinicius_operator", userDetailsServiceBeanName = "userDetailsServiceImpl")
     public void should_loaded_avatar_default_when_avatar_is_not_found() throws IOException {
-        HtmlPage page = webClient.getPage(url);
+        HtmlPage page = webClient.getPage("http://localhost:8080/reconhecimentos");
 
         accessCardRepository.findByUsername("vinicius_operator").ifPresentOrElse(operator -> {
             assertTrue(page.asXml().contains(String.format("/user/avatar/%d", operator.getUser().getId())));
@@ -146,35 +146,6 @@ public class UserControllerTest {
 
     @Test
     @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
-    public void check_if_breadcrumb() throws Exception {
-        HtmlPage page = webClient.getPage(url);
-
-        HtmlOrderedList breadcrumbs = page.getFirstByXPath("//ol[@class='breadcrumb bc-2']");
-
-        var config = breadcrumbs.asXml().contains("Usuários");
-        var setter = breadcrumbs.asXml().contains("todos");
-
-        assertThat(config, Matchers.notNullValue());
-        assertThat(setter, Matchers.notNullValue());
-    }
-
-    @Test
-    @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
-    public void check_if_sideBar_item_active() throws Exception {
-        HtmlPage page = webClient.getPage(url);
-
-        HtmlListItem lisUsers = page.getFirstByXPath("//li[@id='users']");
-        HtmlListItem liAll = page.getFirstByXPath("//li[@id='users_all']");
-
-        var openedClass = lisUsers.getAttribute("class");
-        var activeClass = liAll.getAttribute("class");
-
-        assertThat(openedClass, Matchers.containsString("opened"));
-        assertThat(activeClass, Matchers.containsString("active"));
-    }
-
-    @Test
-    @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
     public void should_return_page_user() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/users/all"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -191,7 +162,6 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("totalElements", Matchers.is(1)));
     }
 
-
     @Test
     @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
     public void should_view_all_user_in_datatable() throws IOException {
@@ -206,5 +176,34 @@ public class UserControllerTest {
         assertThat(htmlTableBody.getRows().get(0).asText(), Matchers.stringContainsInOrder(List.of("Vinicius", "vinicius_user")));
         assertThat(htmlTableBody.getRows().get(1).asText(), Matchers.stringContainsInOrder(List.of("Vinicius", "vinicius_admin")));
         assertThat(htmlTableBody.getRows().get(2).asText(), Matchers.stringContainsInOrder(List.of("Vinicius", "vinicius_operator")));
+    }
+
+    @Test
+    @WithUserDetails(value = "vinicius_user", userDetailsServiceBeanName = "userDetailsServiceImpl")
+    public void should_redirect_to_access_denied_when_user_role_is_user() throws Exception {
+        var url = "http://localhost:8080/usuarios";
+        HtmlPage page = webClient.getPage(url);
+
+        assertThat(page.asXml().contains("Error 403"), Matchers.is(true));
+        assertThat(page.asXml().contains("Acesso Negado!"), Matchers.is(true));
+    }
+
+    @Test
+    @WithUserDetails(value = "vinicius_operator", userDetailsServiceBeanName = "userDetailsServiceImpl")
+    public void should_redirect_to_access_denied_when_user_role_is_operator() throws Exception {
+        var url = "http://localhost:8080/usuarios";
+        HtmlPage page = webClient.getPage(url);
+
+        assertThat(page.asXml().contains("Error 403"), Matchers.is(true));
+        assertThat(page.asXml().contains("Acesso Negado!"), Matchers.is(true));
+    }
+
+    @Test
+    @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
+    public void should_redirect_to_not_found() throws IOException {
+        HtmlPage page = webClient.getPage(url + "/editar/1000000000");
+
+        assertThat(page.asXml().contains("Error 404"), Matchers.is(true));
+        assertThat(page.asXml().contains("Recurso não disponivel!"), Matchers.is(true));
     }
 }

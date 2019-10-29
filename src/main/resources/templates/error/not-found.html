@@ -15,10 +15,11 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/fonts/fontawesome/css/font-awesome.min.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-core.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-forms.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-components.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/xenon-skins.css}">
 		<link rel="stylesheet" type="text/css" th:href="@{/css/custom.css}">
+
+		<script th:src="@{/js/jquery-1.11.1.min.js}"></script>
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -26,42 +27,31 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
-		<title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">UTFParking</title>
+		<title>UtfParking - 404</title>
 	</head>
-	<body class="page-body user-info-navbar-skin-lemonade">
+	<body class="page-body page-error-env">
 
-		<th:block th:replace="fragments/settings-pane :: settings-pane" />
+		<div class="page-error centered">
 
-
-		<div class="page-container">
-
-			<th:block th:replace="fragments/siderbar :: siderbar" />
-
-			<div class="main-content">
-
-				<!--/*@thymesVar id="activeMenu" type="java.lang.String"*/-->
-				<th:block th:include="fragments/navbar :: navbar" />
-
-				<th:block layout:fragment="content"/>
-
-				<th:block th:replace="fragments/footer :: footer" />
+			<div class="error-symbol">
+				<i class="fa-warning"></i>
 			</div>
+
+			<h2>
+				Error 404
+				<small>Recurso não disponivel!</small>
+			</h2>
+
+			<p>O sistema não encontrou o recurso que você solicitou!</p>
+			<p>Verifique com o administrador do sistema, este error</p>
 
 		</div>
 
-		<script th:src="@{/js/jquery-1.11.1.min.js}"></script>
-<!--		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>-->
-
 		<script th:src="@{/js/bootstrap.min.js}"></script>
-		<script th:src="@{/js/TweenMax.min.js}"></script>
 		<script th:src="@{/js/resizeable.js}"></script>
 		<script th:src="@{/js/joinable.js}"></script>
 		<script th:src="@{/js/xenon-api.js}"></script>
-		<script th:src="@{/js/xenon-toggles.js}"></script>
-		<script th:src="@{/js/toastr/toastr.min.js}"></script>
-
-		<th:block layout:fragment="scripts" />
-
 		<script th:src="@{/js/xenon-custom.js}"></script>
+
 	</body>
 </html>

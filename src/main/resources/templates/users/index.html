@@ -7,7 +7,20 @@
     <meta charset="UTF-8">
 
     <link rel="stylesheet" type="text/css" th:href="@{/js/datatables/dataTables.bootstrap.css}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.css">
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">-->
+
+    <style>
+      body {
+        font-size: 140%;
+      }
+
+      table.dataTable th,
+      table.dataTable td {
+        white-space: nowrap;
+      }
+    </style>
 
     <title>Todos Usuários</title>
   </head>
@@ -43,9 +56,10 @@
         </div>
 
         <div class="panel-body">
-          <table class="table table-striped table-bordered" id="users_table">
-            <thead>
-              <tr class="replace-inputs">
+          <div class="">
+            <table class="table table-responsive table-striped table-hover focus-on" id="users_table" >
+              <thead>
+              <tr>
                 <th>id</th>
                 <th>name</th>
                 <th>username</th>
@@ -55,24 +69,25 @@
                 <th>accountNonLocked</th>
                 <th>enabled</th>
               </tr>
-            </thead>
-            <tbody>
+              </thead>
+              <tbody>
 
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
-      <th:block layout:fragment="scripts">
-        <script th:src="@{/js/datatables/js/jquery.dataTables.min.js}"></script>
-        <script th:src="@{/js/datatables/dataTables.bootstrap.js}"></script>
-        <script th:src="@{/js/datatables/yadcf/jquery.dataTables.yadcf.js}"></script>
-        <script th:src="@{/js/datatables/tabletools/dataTables.tableTools.min.js}"></script>
-        <script th:src="@{/js/datatables/js/configurations.js}"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
-      </th:block>
     </div>
+    <th:block layout:fragment="scripts">
+      <script th:src="@{/js/datatables/js/jquery.dataTables.min.js}"></script>
+      <script th:src="@{/js/datatables/dataTables.bootstrap.js}"></script>
+      <script th:src="@{/js/datatables/tabletools/dataTables.tableTools.min.js}"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+      <script th:src="@{/js/datatables/js/configurations.js}"></script>
+    </th:block>
   </body>
 </html>

@@ -14,7 +14,7 @@ public class CarFacade {
     public Car createCarByInputUser(InputUser dto, User user) {
         return Car.builder()
                 .user(user)
-                .plate(dto.getCarPlate())
+                .plate(dto.getCarPlate().equalsIgnoreCase("ausente") ? dto.getId().toString() : dto.getCarPlate())
                 .model(dto.getCarModel())
                 .build();
     }

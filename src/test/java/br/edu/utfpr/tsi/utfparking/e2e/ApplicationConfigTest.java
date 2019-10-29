@@ -1,4 +1,4 @@
-package br.edu.utfpr.tsi.utfparking.web.controller;
+package br.edu.utfpr.tsi.utfparking.e2e;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.*;
@@ -33,7 +33,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 @ActiveProfiles("test")
 @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:/sql/basic_user.sql"})
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = {"classpath:/sql/delete_basic_user.sql"})
-public class ApplicationConfigControllerTest {
+public class ApplicationConfigTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -65,37 +65,6 @@ public class ApplicationConfigControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("config/show"))
                 .andExpect(MockMvcResultMatchers.model().attributeExists("config"))
                 .andExpect(MockMvcResultMatchers.model().attribute("config", Matchers.hasProperty("id", Matchers.notNullValue())));
-    }
-
-    @Test
-    @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
-    public void check_if_sideBar_item_active() throws Exception {
-        var url = "http://localhost:8080/configuracoes";
-        HtmlPage page = webClient.getPage(url);
-
-        HtmlListItem liConfig = page.getFirstByXPath("//li[@id='config']");
-        HtmlListItem liSetter = page.getFirstByXPath("//li[@id='config_setter']");
-
-        var openedClass = liConfig.getAttribute("class");
-        var activeClass = liSetter.getAttribute("class");
-
-        assertThat(openedClass, Matchers.containsString("opened"));
-        assertThat(activeClass, Matchers.containsString("active"));
-    }
-
-    @Test
-    @WithUserDetails(value = "vinicius_admin", userDetailsServiceBeanName = "userDetailsServiceImpl")
-    public void check_if_breadcrumbs() throws Exception {
-        var url = "http://localhost:8080/configuracoes";
-        HtmlPage page = webClient.getPage(url);
-
-        HtmlOrderedList breadcrumbs = page.getFirstByXPath("//ol[@class='breadcrumb bc-2']");
-
-        var config = breadcrumbs.asXml().contains("Configurações");
-        var setter = breadcrumbs.asXml().contains("Ajustar");
-
-        assertThat(config, Matchers.notNullValue());
-        assertThat(setter, Matchers.notNullValue());
     }
 
     @Test
