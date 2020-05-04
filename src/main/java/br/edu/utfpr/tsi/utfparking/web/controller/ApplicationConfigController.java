@@ -5,7 +5,6 @@ import br.edu.utfpr.tsi.utfparking.models.entities.ApplicationConfig;
 import br.edu.utfpr.tsi.utfparking.service.ApplicationConfigService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,7 @@ public class ApplicationConfigController {
 
     private final ApplicationConfigService applicationConfigService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/configuracoes")
     public ModelAndView recognize(ApplicationConfigDTO config, HttpServletRequest context) {
         var configuration = (ApplicationConfig) context.getServletContext().getAttribute("config");
@@ -37,7 +36,7 @@ public class ApplicationConfigController {
         return model;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/configuracoes/salvar")
     public ModelAndView save(@Valid ApplicationConfigDTO config, HttpServletRequest request, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) {

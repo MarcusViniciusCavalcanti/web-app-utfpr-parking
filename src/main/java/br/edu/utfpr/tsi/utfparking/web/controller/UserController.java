@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityNotFoundException;
@@ -37,7 +39,7 @@ public class UserController {
         return Files.readAllBytes(file.toPath());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/usuarios")
     public ModelAndView recognize(InputUser inputUser) {
         var model = new ModelAndView("users/index");
@@ -46,7 +48,7 @@ public class UserController {
         return model;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/usuarios/novo")
     public ModelAndView newUser(InputUser inputUser) {
         var roles = roleServices.getAllRoles();
@@ -58,7 +60,7 @@ public class UserController {
         return model;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/usuarios/editar/{id}")
     public ModelAndView editUser(@PathVariable("id") Long id) {
         try {
@@ -75,7 +77,7 @@ public class UserController {
 
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/usuarios/novo")
     public ModelAndView saveNewUser(InputUser inputUser, BindingResult result) {
         if (result.hasErrors()) {
@@ -86,7 +88,7 @@ public class UserController {
         return new ModelAndView("redirect:/usuarios");
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/usuarios/editar")
     public ModelAndView editUser(InputUser inputUser, BindingResult result) {
         if (result.hasErrors()) {
@@ -97,13 +99,13 @@ public class UserController {
         return new ModelAndView("redirect:/usuarios");
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users/all")
     public ResponseEntity<Page<PageUser>> getPageUser(Pageable pageable) {
         return ResponseEntity.ok(userService.getPage(pageable));
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users/all/search/{search}")
     public ResponseEntity<Page<PageUser>> getPageUser(@PathVariable("search") String search, Pageable pageable) {
         return ResponseEntity.ok(userService.getPageBySearch(search, pageable));
